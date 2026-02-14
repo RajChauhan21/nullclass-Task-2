@@ -1,0 +1,28 @@
+public class PrimeNumberGenerator {
+    public static void main(String[] args) {
+        int limit = 100; // Example limit
+        StringBuilder primeNumbers = new StringBuilder();
+
+        for (int i = 2; i <= limit; i++) {
+            if (isPrime(i)) {
+                primeNumbers.append(i).append("\n");
+            }
+        }
+
+        try (PrintWriter out = new PrintWriter(new FileWriter("prime_numbers.txt"))) {
+            out.println(primeNumbers.toString());
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+        for (int i = 3; i * i <= n; i += 2) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}
